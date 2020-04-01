@@ -21,35 +21,38 @@ class SignIn extends Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col s12 m8 offset-m2'>
+          <div className='col s12 '>
             <form className='white' onSubmit={this.handleSubmit}>
               <h5 className='grey-text text-darken-3'>Sign In</h5>
-              <div class='row'>
-                <div class='input-field col s12'>
+              <div className='row'>
+                <div className='input-field col s12'>
                   <input
                     id='email'
                     type='email'
-                    class='validate'
+                    className='validate'
                     value={this.state.email}
                     onChange={this.handleInputChange}
                   />
                   <label htmlFor='email'>Email</label>
                 </div>
               </div>
-              <div class='row'>
-                <div class='input-field col s12'>
+              <div className='row'>
+                <div className='input-field col s12'>
                   <input
                     id='password'
                     type='password'
-                    class='validate'
+                    className='validate'
                     value={this.state.password}
                     onChange={this.handleInputChange}
                   />
                   <label htmlFor='password'>Password</label>
                 </div>
               </div>
-              <button class='btn waves-light red' type='submit' name='action'>
-                Submit
+              <button
+                className='btn waves-light red'
+                type='submit'
+                name='action'>
+                LOGIN
               </button>
             </form>
           </div>

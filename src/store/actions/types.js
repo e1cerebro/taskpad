@@ -1,0 +1,4 @@
+export const CREATE_PROJECT = "CREATE_PROJECT";
+export const CREATE_PROJECT_ERROR = "CREATE_PROJECT_ERROR";
+export const SIGNIN = "SIGNIN";
+export const SIGNIN_ERROR = "SIGNIN_ERROR";

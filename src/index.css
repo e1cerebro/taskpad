@@ -5,11 +5,13 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: url("/img/mario-bg.png");
+  background: url("/img/bg.jpg");
   background-size: 100%;
   background-position: bottom;
-  background-color: #95e8f3;
+  background-color: #eeeead;
   min-height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 form {
@@ -28,4 +30,10 @@ input[type="password"]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
   border-color: #ec407a;
   box-shadow: none;
+}
+
+.create-project {
+  position: absolute;
+  bottom: 60px;
+  right: 100px;
 }
