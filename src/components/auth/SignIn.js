@@ -1,31 +1,39 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { signIn } from "../../store/actions/authAction";
+import { Redirect, Link } from "react-router-dom";
 class SignIn extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.signIn(this.state);
   };
 
   render() {
+    const { auth } = this.props;
+    if (auth.uid) return <Redirect to='/' />;
+
+    const authError = this.props.authError;
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col s12 '>
+          <div className='col s12 m8 offset-m2'>
             <form className='white' onSubmit={this.handleSubmit}>
               <h5 className='grey-text text-darken-3'>Sign In</h5>
               <div className='row'>
-                <div className='input-field col s12'>
+                <div className='input-field col s12 '>
                   <input
                     id='email'
                     type='email'
@@ -52,8 +60,12 @@ class SignIn extends Component {
                 className='btn waves-light red'
                 type='submit'
                 name='action'>
-                LOGIN
+                LOGIN <i className='material-icons right'>account_circle</i>
               </button>
+              <div className='red-text center'>
+                {authError ? authError : ""}
+              </div>
+              <Link to='/reset-password'>Forgot password?</Link>
             </form>
           </div>
         </div>
@@ -62,4 +74,18 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    signIn: (credentials) => {
+      dispatch(signIn(credentials));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

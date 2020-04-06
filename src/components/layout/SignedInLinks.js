@@ -1,22 +1,39 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { signOut } from "../../store/actions/authAction";
+const SignedInLinks = (props) => {
+  const { userProfile } = props;
 
-const SignedInLinks = () => {
   return (
-    <ul id='nav-mobile' className='right hide-on-med-and-down'>
-      <li>
-        <NavLink to='/project/create'>New Project</NavLink>
-      </li>
-      <li>
-        <NavLink to='/'>Log Out</NavLink>
-      </li>
-      <li>
-        <NavLink to='/' className='btn btn-floating blue lighten-1'>
-          UC
-        </NavLink>
-      </li>
-    </ul>
+    <Fragment>
+      <ul id='nav-mobile' className='right hide-on-med-and-down'>
+        <li>
+          <a alt='signout' onClick={() => props.signOut()}>
+            Log Out
+          </a>
+        </li>
+        <li>
+          <NavLink to='/profile' className='btn btn-floating blue lighten-1'>
+            {userProfile.initials}
+          </NavLink>
+        </li>
+      </ul>
+    </Fragment>
   );
 };
 
-export default SignedInLinks;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    signOut: () => {
+      dispatch(signOut());
+    },
+  };
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    userProfile: state.firebase.profile,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);
